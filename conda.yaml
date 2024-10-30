@@ -1,0 +1,11 @@
+name: garmentcode
+channels:
+  - defaults
+  - pytorch
+  - conda-forge
+  - nvidia
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+    - pygarment==2.0

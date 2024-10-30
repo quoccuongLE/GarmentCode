@@ -31,3 +31,9 @@ output*
 
 # Nicegui
 .nicegui
+
+.vscode/
+tmp/
+logs/
+.venv/
+.env
