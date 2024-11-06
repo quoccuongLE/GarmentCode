@@ -62,10 +62,11 @@ class BasicPattern(object):
 
     # ------------ Interface -------------
 
-    def __init__(self, pattern_file=None):
-        
+
+    def __init__(self, pattern_file: str | None = None) -> None:
+
         self.spec_file = pattern_file
-        
+
         if pattern_file is not None: # load pattern from file
             self.path = os.path.dirname(pattern_file)
             self.name = BasicPattern.name_from_path(pattern_file)
@@ -94,7 +95,7 @@ class BasicPattern(object):
         # template normalization - panel translations and curvature to relative coords
         self._normalize_template()
 
-    def serialize(self, path, to_subfolder=True, tag='', empty_ok=False):
+    def serialize(self, path: str, to_subfolder: bool = True, tag: str = '', empty_ok: bool = False) -> str:
 
         if not empty_ok and len(self.panel_order()) == 0:
             raise RuntimeError(f'{self.__class__.__name__}::ERROR::Asked to save an empty pattern')
@@ -117,11 +118,12 @@ class BasicPattern(object):
         # Save specification
         with open(spec_file, 'w') as f_json:
             json.dump(self.spec, f_json, indent=2)
-        
+
         return log_dir
 
     @staticmethod
-    def name_from_path(pattern_file):
+
+    def name_from_path(pattern_file: str) -> str:
         name = os.path.splitext(os.path.basename(pattern_file))[0]
         if name.endswith('_specification'):
             name = name.split('_specification')[0]
@@ -131,7 +133,7 @@ class BasicPattern(object):
         return name
 
     # --------- Info ------------------------
-    def panel_order(self, force_update=False):
+    def panel_order(self, force_update: bool = False) -> list[str]:
         """
             Return current agreed-upon order of panels
             * if not defined in the pattern or if  'force_update' is enabled, re-evaluate it based on curent panel translation and save
@@ -140,7 +142,7 @@ class BasicPattern(object):
             self.pattern['panel_order'] = self.define_panel_order()
         return self.pattern['panel_order']
 
-    def define_panel_order(self, name_list=None, location_dict=None, dim=0, tolerance=10):
+    def define_panel_order(self, name_list: list[str] | None = None, location_dict: dict[str, np.ndarray] | None = None, dim: int = 0, tolerance: float = 10) -> list[str]:
         """ (Recursive) Ordering of the panels based on their 3D translation values.
             * Using cm as units for tolerance (when the two coordinates are considered equal)
             * Sorting by all dims as keys X -> Y -> Z (left-right (looking from Z) then down-up then back-front)
@@ -180,7 +182,7 @@ class BasicPattern(object):
         return sorted_names
 
     # -- sub-utils --
-    def _edge_as_vector(self, vertices, edge_dict):
+    def _edge_as_vector(self, vertices: np.ndarray, edge_dict: dict) -> np.ndarray:
         """Represent edge as vector of fixed length: 
             * First 2 elements: Vector endpoint. 
                 Original edge endvertex positions can be restored if edge vector is added to the start point,
@@ -195,7 +197,7 @@ class BasicPattern(object):
 
         return np.concatenate([edge_vector, curvature])
 
-    def _edge_as_curve(self, vertices, edge):
+    def _edge_as_curve(self, vertices: np.ndarray, edge: dict) -> svgpath.Path:
         start = vertices[edge['endpoints'][0]]
         end = vertices[edge['endpoints'][1]]
         if ('curvature' in edge):
@@ -233,7 +235,7 @@ class BasicPattern(object):
             return svgpath.Line(*utils.list_to_c([start, end]))
 
     @staticmethod
-    def _point_in_3D(local_coord, rotation, translation):
+    def _point_in_3D(self, local_coord: np.ndarray, rotation: np.ndarray, translation: np.ndarray) -> np.ndarray:
         """Apply 3D transformation to the point given in 2D local coordinated, e.g. on the panel
         * rotation is expected to be given in 'xyz' Euler anges (as in Autodesk Maya) or as 3x3 matrix"""
 
@@ -252,7 +254,7 @@ class BasicPattern(object):
         # translate
         return rotated_point + translation
 
-    def _panel_universal_transtation(self, panel_name):
+    def _panel_universal_transtation(self, panel_name: str) -> tuple[np.ndarray, np.ndarray]:
         """Return a universal 3D translation of the panel (e.g. to be used in judging the panel order).
             Universal translation it defined as world 3D location of mid-point of the top (in 3D) of the panel (2D) bounding box.
             * Assumptions: 
@@ -293,7 +295,7 @@ class BasicPattern(object):
         """
         if self.properties['curvature_coords'] == 'absolute':
             for panel in self.pattern['panels']:
-                # convert curvature 
+                # convert curvature
                 vertices = self.pattern['panels'][panel]['vertices']
                 edges = self.pattern['panels'][panel]['edges']
                 for edge in edges:
@@ -305,7 +307,7 @@ class BasicPattern(object):
                         )
             # now we have new property
             self.properties['curvature_coords'] = 'relative'
-        
+
         if 'units_in_meter' in self.properties:
             if self.properties['units_in_meter'] != 100:
                 for panel in self.pattern['panels']:
@@ -324,7 +326,7 @@ class BasicPattern(object):
             print('Normalizing translation!')
             self.properties['normalize_panel_translation'] = False  # one-time use property. Preverts rotation issues on future reads
             for panel in self.pattern['panels']:
-                # put origin in the middle of the panel-- 
+                # put origin in the middle of the panel--
                 offset = self._normalize_panel_translation(panel)
                 # udpate translation vector
                 original = self.pattern['panels'][panel]['translation'] 
@@ -341,11 +343,11 @@ class BasicPattern(object):
             self.properties['normalized_edge_loops'] = True
             for panel in self.pattern['panels']:
                 self._normalize_edge_loop(panel)
-        
+
         # Recalculate panel order if not given already
         self.panel_order()
 
-    def _normalize_panel_translation(self, panel_name):
+    def _normalize_panel_translation(self, panel_name: str) -> np.ndarray:
         """ Convert panel vertices to local coordinates: 
             Shifts all panel vertices s.t. origin is at the center of the panel
         """
@@ -357,8 +359,8 @@ class BasicPattern(object):
         panel['vertices'] = vertices.tolist()
 
         return offset
-    
-    def _normalize_panel_scaling(self, panel_name, units_in_meter):
+
+    def _normalize_panel_scaling(self, panel_name: str, units_in_meter: float) -> None:
         """Convert all panel info to cm. I assume that curvature is alredy converted to relative coords -- scaling does not need update"""
         scaling = 100 / units_in_meter
         # vertices
@@ -370,7 +372,7 @@ class BasicPattern(object):
         translation = self.pattern['panels'][panel_name]['translation']
         self.pattern['panels'][panel_name]['translation'] = [scaling * coord for coord in translation]
 
-    def _normalize_edge_loop(self, panel_name):
+    def _normalize_edge_loop(self, panel_name: str) -> tuple[list[int], bool]:
         """
             * Re-order edges s.t. the edge loop starts from low-left vertex
             * Make the edge loop follow counter-clockwise direction (uniform traversal)
@@ -391,7 +393,7 @@ class BasicPattern(object):
         first_edge = self._edge_as_vector(vertices, rotated_edges[0])[:2]
         last_edge = self._edge_as_vector(vertices, rotated_edges[-1])[:2]
         flipped = False
-        # due to the choice of origin (at the corner), first & last edge cross-product will reliably show panel normal direction 
+        # due to the choice of origin (at the corner), first & last edge cross-product will reliably show panel normal direction
         if np.cross(first_edge, last_edge) > 0:  # should be negative -- counterclockwise
             print('{}::{}::panel <{}> flipped'.format(
                 self.__class__.__name__, self.name, panel_name
@@ -437,23 +439,24 @@ class BasicPattern(object):
         return rotated_edge_ids, flipped
 
     # -- sub-utils --
-    def _edge_length(self, panel, edge):
+    def _edge_length(self, panel: str, edge: int) -> float:
         panel = self.pattern['panels'][panel]
         v_id_start, v_id_end = tuple(panel['edges'][edge]['endpoints'])
         v_start, v_end = np.array(panel['vertices'][v_id_start]), \
             np.array(panel['vertices'][v_id_end])
-        
+
         return np.linalg.norm(v_end - v_start)
 
     @staticmethod
-    def _vert_at_left_corner(vertices):
+    @staticmethod
+    def _vert_at_left_corner(vertices: np.ndarray) -> int:
         """
             Find, which vertex is in the left corner
             * Determenistic process
         """
         left_corner = np.min(vertices, axis=0)
         vertices = vertices - left_corner
-        
+
         # choose the one closest to zero (=low-left corner) as new origin
         verts_norms = np.linalg.norm(vertices, axis=1)  # numpy 1.9+
         origin_id = np.argmin(verts_norms)
@@ -461,7 +464,7 @@ class BasicPattern(object):
         return origin_id
 
     @staticmethod
-    def _rotate_edges(edges, edge_ids, new_origin_id):
+    def _rotate_edges(edges: list, edge_ids: list, new_origin_id: int) -> tuple[list, list]:
         """
             Rotate provided list of edges s.t. the first edge starts from vertex with id = new_origin_id
             Map old edge_ids to new ones accordingly
@@ -478,7 +481,7 @@ class BasicPattern(object):
 
         return rotated_edges, rotated_edge_ids
 
-    def _restore(self, backup_copy):
+    def _restore(self, backup_copy: dict) -> None:
         """Restores spec structure from given backup copy 
             Makes a full copy of backup to avoid accidential corruption of backup
         """
@@ -487,11 +490,11 @@ class BasicPattern(object):
         self.properties = self.spec['properties']  # mandatory part
 
     # -------- Checks ------------
-    def is_self_intersecting(self):
+    def is_self_intersecting(self) -> bool:
         """returns True if any of the pattern panels are self-intersecting"""
         return any(map(self._is_panel_self_intersecting, self.pattern['panels']))
 
-    def _is_panel_self_intersecting(self, panel_name, n_vert_approximation=10):
+    def _is_panel_self_intersecting(self, panel_name: str, n_vert_approximation: int = 10) -> bool:
         """Checks whatever a given panel contains intersecting edges
         """
         panel = self.pattern['panels'][panel_name]
@@ -516,9 +519,9 @@ class BasicPattern(object):
 
         # NOTE: simple pairwise checks of edges
         for i1 in range(0, len(edge_curves)):
-           for i2 in range(i1 + 1, len(edge_curves)):
+            for i2 in range(i1 + 1, len(edge_curves)):
                 intersect_t = edge_curves[i1].intersect(edge_curves[i2])
-                
+
                 # Check exceptions -- intersection at the vertex
                 for i in range(len(intersect_t)): 
                     t1, t2 = intersect_t[i]
@@ -964,5 +967,3 @@ class ParametrizedPattern(BasicPattern):
                 self.parameters[parameter]['value'] = values
             else:  # simple 1-value parameter
                 self.parameters[parameter]['value'] = self._new_value(param_ranges)
-
-

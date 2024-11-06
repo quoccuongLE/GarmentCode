@@ -6,6 +6,8 @@ channels:
   - nvidia
 dependencies:
   - python=3.9
+  - conda-forge::libstdcxx-ng=14.2
   - pip
   - pip:
+    - fire
     - pygarment==2.0
