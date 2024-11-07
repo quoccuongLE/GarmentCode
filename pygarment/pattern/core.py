@@ -63,7 +63,7 @@ class BasicPattern(object):
     # ------------ Interface -------------
 
 
-    def __init__(self, pattern_file: str | None = None) -> None:
+    def __init__(self, pattern_file: str = None) -> None:
 
         self.spec_file = pattern_file
 
@@ -122,7 +122,6 @@ class BasicPattern(object):
         return log_dir
 
     @staticmethod
-
     def name_from_path(pattern_file: str) -> str:
         name = os.path.splitext(os.path.basename(pattern_file))[0]
         if name.endswith('_specification'):
@@ -142,7 +141,7 @@ class BasicPattern(object):
             self.pattern['panel_order'] = self.define_panel_order()
         return self.pattern['panel_order']
 
-    def define_panel_order(self, name_list: list[str] | None = None, location_dict: dict[str, np.ndarray] | None = None, dim: int = 0, tolerance: float = 10) -> list[str]:
+    def define_panel_order(self, name_list: list[str] = None, location_dict: dict[str, np.ndarray] = None, dim: int = 0, tolerance: float = 10) -> list[str]:
         """ (Recursive) Ordering of the panels based on their 3D translation values.
             * Using cm as units for tolerance (when the two coordinates are considered equal)
             * Sorting by all dims as keys X -> Y -> Z (left-right (looking from Z) then down-up then back-front)
@@ -235,7 +234,7 @@ class BasicPattern(object):
             return svgpath.Line(*utils.list_to_c([start, end]))
 
     @staticmethod
-    def _point_in_3D(self, local_coord: np.ndarray, rotation: np.ndarray, translation: np.ndarray) -> np.ndarray:
+    def _point_in_3D(local_coord: np.ndarray, rotation: np.ndarray, translation: np.ndarray) -> np.ndarray:
         """Apply 3D transformation to the point given in 2D local coordinated, e.g. on the panel
         * rotation is expected to be given in 'xyz' Euler anges (as in Autodesk Maya) or as 3x3 matrix"""
 
@@ -447,7 +446,6 @@ class BasicPattern(object):
 
         return np.linalg.norm(v_end - v_start)
 
-    @staticmethod
     @staticmethod
     def _vert_at_left_corner(vertices: np.ndarray) -> int:
         """
