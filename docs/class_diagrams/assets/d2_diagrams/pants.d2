@@ -1,0 +1,53 @@
+# Class definitions
+PantPanel: {
+  shape: class
+  
+  # Methods and properties
+  +__init__(name, body, design, length, waist, hips, hips_depth, crotch_width, dart_position, match_top_int_to, hipline_ext, double_dart)
+  +add_darts(top, dart_width, dart_depth, dart_position, double_dart)
+  -edges
+  -interfaces
+}
+
+PantsHalf: {
+  shape: class
+  
+  # Methods and properties
+  +__init__(tag, body, design, rise)
+  +length()
+  -front: PantPanel
+  -back: PantPanel
+  -cuff
+  -stitching_rules
+  -interfaces
+}
+
+Pants: {
+  shape: class
+  
+  # Methods and properties
+  +__init__(body, design, rise)
+  +get_rise()
+  +length()
+  -right: PantsHalf
+  -left: PantsHalf
+  -stitching_rules
+  -interfaces
+}
+
+BaseBottoms: {
+  shape: class
+}
+
+pyg.Panel: {
+  shape: class
+}
+
+# Inheritance relationships
+BaseBottoms -> PantsHalf: inherits
+BaseBottoms -> Pants: inherits
+pyg.Panel -> PantPanel: inherits
+
+# Composition relationships
+PantsHalf -> PantPanel: contains
+Pants -> PantsHalf: contains

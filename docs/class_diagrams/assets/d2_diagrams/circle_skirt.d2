@@ -1,0 +1,67 @@
+# Abstract classes
+Panel: {
+  style.multiple: true
+  style.stroke-dash: 5
+}
+
+StackableSkirtComponent: {
+  style.multiple: true
+  style.stroke-dash: 5
+}
+
+# Concrete classes with properties and methods
+CircleArcPanel: {
+  shape: class
+  
+  -name
+  -top_rad
+  -length
+  -angle
+  -match_top_int_proportion
+  -match_bottom_int_proportion
+  +__init__()
+  +length()
+  +from_w_length_suns()
+  +from_all_length()
+  +from_length_rad()
+}
+
+AsymHalfCirclePanel: {
+  shape: class
+
+  -name
+  -top_rad
+  -length_f
+  -length_s
+  -match_top_int_proportion
+  -match_bottom_int_proportion
+  +__init__()
+  +length()
+}
+
+SkirtCircle: {
+  shape: class
+
+  -body
+  -design
+  -tag
+  -length
+  -rise
+  -slit
+  -asymm
+  -min_len
+  +__init__()
+  +add_cut()
+  +length()
+}
+
+AsymmSkirtCircle: {
+  shape: class
+  +__init__()
+}
+
+# Inheritance relationships
+Panel -> CircleArcPanel: extends
+Panel -> AsymHalfCirclePanel: extends
+StackableSkirtComponent -> SkirtCircle: extends
+SkirtCircle -> AsymmSkirtCircle: extends

@@ -1,0 +1,36 @@
+# Classes
+TotalLengthError: {
+  shape: class
+  message: str
+}
+
+IncorrectElementConfiguration: {
+  shape: class
+  message: str
+}
+
+MetaGarment: {
+  shape: class
+  
+  # Private fields
+  -body
+  -design 
+  -upper_name
+  -lower_name
+  -belt_name
+  -subs
+
+  # Public methods
+  +__init__(name, body, design)
+  +assert_total_length(tol)
+  +assert_non_empty(filter_belts)
+  +assert_skirt_waistband()
+}
+
+# Inheritance relationships
+TotalLengthError -> BaseException: extends
+IncorrectElementConfiguration -> BaseException: extends
+MetaGarment -> Component: extends
+
+# Add note
+MetaGarment.note: Generates sewing patterns for various dress styles

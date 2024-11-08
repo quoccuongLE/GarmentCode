@@ -1,0 +1,42 @@
+# Class definitions
+BaseBottoms: {
+  style.multiple: true
+  style.italic: true
+}
+
+SkirtLevels: {
+  shape: class
+  
+  # Properties
+  +List subs
+  +Dict interfaces
+  +List stitching_rules
+  +float base_len
+  +float level_len
+  +float rise
+  +float angle
+  
+  # Methods
+  +__init__(body, design, rise)
+  +eval_length(ldesign, body)
+}
+
+CircleSkirt: {
+  shape: class
+}
+
+SkirtPaneled: {
+  shape: class
+}
+
+# Relationships
+BaseBottoms -> SkirtLevels: inheritance
+SkirtLevels -- CircleSkirt: composition
+SkirtLevels -- SkirtPaneled: composition
+
+# Add note
+note: Multi-level skirt composed of stacked skirt components {
+  style.stroke: "#666"
+  style.fill: "#ffffcc"
+  near: SkirtLevels
+}

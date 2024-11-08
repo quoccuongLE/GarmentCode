@@ -1,0 +1,55 @@
+NoPanelsCollar: {
+  shape: class
+  interfaces
+  __init__(name, body, design)
+  length()
+}
+
+Turtle: {
+  shape: class
+  interfaces
+  front
+  back
+  stitching_rules
+  __init__(tag, body, design)
+  length()
+}
+
+SimpleLapelPanel: {
+  shape: class
+  edges
+  interfaces
+  __init__(name, length, max_depth)
+}
+
+SimpleLapel: {
+  shape: class
+  interfaces
+  front
+  back
+  stitching_rules
+  __init__(tag, body, design)
+  length()
+}
+
+HoodPanel: {
+  shape: class
+  edges
+  interfaces
+  __init__(name, f_depth, b_depth, f_length, b_length, width, in_length, depth)
+}
+
+Hood2Panels: {
+  shape: class
+  interfaces
+  panel
+  __init__(tag, body, design)
+  length()
+}
+
+Component -> NoPanelsCollar: inherits
+Component -> Turtle: inherits
+Panel -> SimpleLapelPanel: inherits
+Component -> SimpleLapel: inherits
+Panel -> HoodPanel: inherits
+Component -> Hood2Panels: inherits

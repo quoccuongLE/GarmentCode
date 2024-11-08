@@ -1,0 +1,21 @@
+Insert: {
+  shape: class
+  edges
+  interfaces
+  __init__(id, width, depth)
+}
+
+GodetSkirt: {
+  shape: class
+  base
+  interfaces
+  subs
+  stitching_rules
+  __init__(body, design, rise)
+  inserts(bottom_edge, panel, ins_w, ins_depth, num_inserts, cuts_dist)
+  get_rise()
+  length()
+}
+
+Panel -> Insert: inherits
+BaseBottoms -> GodetSkirt: inherits

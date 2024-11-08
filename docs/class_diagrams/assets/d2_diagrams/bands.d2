@@ -1,0 +1,71 @@
+# Inheritance relationships
+BaseBand -> StraightWB: extends
+StraightWB -> FittedWB: extends
+BaseBand -> CuffBand: extends
+BaseBand -> CuffSkirt: extends
+Component -> CuffBandSkirt: extends
+Panel -> StraightBandPanel: extends
+
+# Class definitions with properties
+StraightBandPanel: {
+  shape: class
+  
+  # Properties
+  +name: str
+  +edges: EdgeSequence
+  +interfaces: dict
+  +__init__(name, width, depth, match_int_proportion)
+}
+
+StraightWB: {
+  shape: class
+  
+  # Properties
+  +waist: float
+  +width: float
+  +rise: float
+  +front: Panel
+  +back: Panel
+  +__init__(body, design, rise)
+  +define_panels()
+}
+
+FittedWB: {
+  shape: class
+  
+  # Properties
+  +bottom_width: float
+  +bottom_back_fraction: float
+  +__init__(body, design, rise)
+  +define_panels()
+}
+
+CuffBand: {
+  shape: class
+  
+  # Properties
+  +design: dict
+  +front: Panel
+  +back: Panel
+  +__init__(tag, design, length)
+}
+
+CuffSkirt: {
+  shape: class
+  
+  # Properties
+  +design: dict
+  +front: Panel
+  +back: Panel
+  +__init__(tag, design, length)
+}
+
+CuffBandSkirt: {
+  shape: class
+  
+  # Properties
+  +cuff: CuffBand
+  +skirt: CuffSkirt
+  +__init__(tag, design)
+  +length()
+}

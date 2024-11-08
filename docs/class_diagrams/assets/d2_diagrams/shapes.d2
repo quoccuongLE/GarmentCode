@@ -1,0 +1,23 @@
+ShapeFunctions: {
+  shape: class
+  Sun(width, depth, n_rays, d_rays): EdgeSeqFactory
+  SIGGRAPH_logo(width, depth): tuple
+  SVGFile(width, filename, depth): tuple
+  sample_arc(curve, length, stride, n_points, shift): list
+}
+
+EdgeSeqFactory: {
+  shape: class
+  from_verts()
+  halfs_from_svg()
+}
+
+CircleEdgeFactory: {
+  shape: class
+  from_three_points()
+  as_curve()
+  length()
+}
+
+ShapeFunctions -> EdgeSeqFactory: uses
+ShapeFunctions -> CircleEdgeFactory: uses

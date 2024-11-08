@@ -1,0 +1,42 @@
+SleevePanel: {
+  shape: class
+  name: str
+  edges: EdgeSequence
+  interfaces: dict
+  __init__(name, body, design, open_shape, length_shift, _standing_margin)
+  length(longest_dim)
+}
+
+Sleeve: {
+  shape: class
+  tag: str
+  design: dict
+  body: dict
+  interfaces: dict
+  stitching_rules: Stitches
+  f_sleeve: SleevePanel
+  b_sleeve: SleevePanel
+  cuff: Band
+  __init__(tag, body, design, front_w, back_w)
+  _cuff_len_adj()
+  length()
+}
+
+ArmholeSquare: {
+  style.multiple: true
+}
+
+ArmholeAngle: {
+  style.multiple: true
+}
+
+ArmholeCurve: {
+  style.multiple: true
+}
+
+Panel -> SleevePanel: inherits
+Component -> Sleeve: inherits
+Sleeve -> ArmholeSquare: uses
+Sleeve -> ArmholeAngle: uses
+Sleeve -> ArmholeCurve: uses
+Sleeve -> SleevePanel: contains

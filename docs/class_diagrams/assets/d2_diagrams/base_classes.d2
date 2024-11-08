@@ -1,0 +1,45 @@
+Panel: {
+  style.multiple: true
+}
+
+Component: {
+  style.multiple: true
+}
+
+BaseBodicePanel: {
+  shape: class
+  body
+  design
+  interfaces
+  get_width(level)
+}
+
+BaseBottoms: {
+  shape: class
+  body
+  design
+  rise
+  interfaces
+  get_rise()
+  eval_rise(rise)
+}
+
+StackableSkirtComponent: {
+  shape: class
+  interfaces
+  __init__(body, design, tag, length, rise, slit, top_ruffles)
+}
+
+BaseBand: {
+  shape: class
+  body
+  design
+  rise
+  interfaces
+  length()
+}
+
+Panel -> BaseBodicePanel: inherits
+Component -> BaseBottoms: inherits
+BaseBottoms -> StackableSkirtComponent: inherits
+Component -> BaseBand: inherits

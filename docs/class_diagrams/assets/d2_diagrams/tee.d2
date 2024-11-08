@@ -1,0 +1,24 @@
+BaseBodicePanel: {
+  style.multiple: true
+}
+
+TorsoFrontHalfPanel: {
+  shape: class
+  -width
+  -edges
+  -interfaces
+  __init__(name, body, design)
+  get_width(level)
+}
+
+TorsoBackHalfPanel: {
+  shape: class
+  -width
+  -edges
+  -interfaces
+  __init__(name, body, design)
+  get_width(level)
+}
+
+BaseBodicePanel -> TorsoFrontHalfPanel: inherits
+BaseBodicePanel -> TorsoBackHalfPanel: inherits
