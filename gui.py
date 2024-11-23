@@ -23,6 +23,6 @@ if __name__ == '__main__':
             host="0.0.0.0",
             reload=False,
             favicon=icon_image_b64,
-            title='GarmentCode'
+            title='GarmentCode dev'
         )
     

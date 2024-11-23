@@ -1,2 +1,2 @@
 #!/bin/bash
-./test_garmentcode.py 
+python ./test_garmentcode.py 

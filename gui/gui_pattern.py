@@ -52,11 +52,11 @@ class GUIPattern:
         self.body_file = None
         self.design_file = None
         self._load_body_file(
-            Path.cwd() / 'assets/bodies/mean_all.yaml'
+            Path.cwd() / 'assets/bodies/fmodel_dev.yaml'
         )
         self.default_body_params = deepcopy(self.body_params)
         self._load_design_file(
-            Path.cwd() / 'assets/design_params/default.yaml'
+            Path.cwd() / 'assets/design_params/fitted_shirt.yaml'
         )
 
         # Status
