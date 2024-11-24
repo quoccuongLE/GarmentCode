@@ -217,13 +217,13 @@ class GUIPattern:
 
         # Paths
         paths = PathCofig(
-            in_element_path=pattern_folder, 
+            in_element_path=pattern_folder,
             out_path=self.save_path,
             in_name=def_sew_pattern.name,
-            out_name=self.sew_pattern.name + '_3D',
-            body_name='mean_all',  
-            smpl_body=False,   # NOTE: depends on chosen body model
-            add_timestamp=False
+            out_name=self.sew_pattern.name + "_3D",
+            body_name=self.body_measurement,
+            smpl_body=False,  # NOTE: depends on chosen body model
+            add_timestamp=False,
         )
 
         # Generate and save garment box mesh (if not existent)
