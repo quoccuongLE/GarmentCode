@@ -11,7 +11,7 @@ icon_image_b64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABc
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "--avatar-path",
-    default="drippy/female_model.stl",
+    default="drippy/female_model",
     help="Body model path",
     type=str,
 )

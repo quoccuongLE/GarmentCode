@@ -8,7 +8,7 @@ import trimesh
 from copy import deepcopy
 from typing import Optional
 
-# Custom 
+# Custom
 from assets.garment_programs.meta_garment import MetaGarment
 from assets.bodies.body_params import BodyParameters
 import pygarment as pyg
@@ -26,7 +26,8 @@ def _id_generator(size=10, chars=string.ascii_uppercase + string.digits):
         return ''.join(random.choices(chars, k=size))
 
 class GUIPattern:
-    def __init__(self) -> None:
+
+    def __init__(self, body_measurement: str = "mean_all") -> None:
         # Unique id to distiguish tab sessions correctly
         self.id = _id_generator(20)
 
@@ -51,8 +52,9 @@ class GUIPattern:
 
         self.body_file = None
         self.design_file = None
+        self.body_measurement = body_measurement
         self._load_body_file(
-            Path.cwd() / 'assets/bodies/mean_all.yaml'
+            Path.cwd() / f'assets/bodies/{body_measurement}.yaml'
         )
         self.default_body_params = deepcopy(self.body_params)
         self._load_design_file(
@@ -116,7 +118,7 @@ class GUIPattern:
         new_design = self.design_sampler.default()
         # re-assign the values instead up overwriting them
         self._nested_sync(new_design, self.design_params)
-        
+
         if reload:
             self.reload_garment()
 
@@ -143,7 +145,7 @@ class GUIPattern:
         """Synchronize left and right design parameters"""
         # Check if needed in the first place
         if with_check and self.design_params['left']['enable_asym']['v']:
-            # Asymmetry enabled, the params should not syncronise 
+            # Asymmetry enabled, the params should not syncronise
             return  
         for k in self.design_params['left']:
             if k != 'enable_asym':
@@ -173,14 +175,14 @@ class GUIPattern:
             self.svg_bbox = pattern.svg_bbox
         except pyg.EmptyPatternError:
             self.svg_filename = ''
-    
+
     # Cleaning
     def clear_previous_svg(self):
         """Clear previous svg display file"""
         if self.svg_filename:
             (self.tmp_path / self.svg_filename).unlink()
             self.svg_filename = ''
-    
+
     def clear_previous_download(self):
         """Clear previous download package display file"""
         if self.saved_garment_folder:
@@ -199,12 +201,12 @@ class GUIPattern:
     def drape_3d(self):
         """Run the draping of the current frame"""
 
-        # Config setup 
+        # Config setup
         props = data_config.Properties('./assets/Sim_props/gui_sim_props.yaml')   # TODOLOW Parameter?
         props.set_section_stats('sim', fails={}, sim_time={}, spf={}, fin_frame={}, body_collisions={}, self_collisions={})
         props.set_section_stats('render', render_time={})
 
-        # Force the design to be fitted to mean body shape 
+        # Force the design to be fitted to mean body shape
         # TODOLOW Support body shape estimation from measurements
 
         def_sew_pattern = MetaGarment(
@@ -279,7 +281,7 @@ class GUIPattern:
         is_not_upper = self.design_params['meta']['upper']['v'] is None
         if is_not_upper:
             return False
-        
+
         # Upper + fitted + strapless
         is_asymm = self.design_params['left']['enable_asym']['v']
         is_fitted = 'Fitted' in self.design_params['meta']['upper']['v']
@@ -298,7 +300,7 @@ class GUIPattern:
         is_sleeveless = sleeves['sleeveless']['v']
         is_curve = sleeves['armhole_shape']['v'] == 'ArmholeCurve'
         is_curve = not is_sleeveless and is_curve
-        
+
         is_asym_sleeveless = self.design_params['left']['sleeve']['sleeveless']['v']
         is_asymm_curve = self.design_params['left']['sleeve']['armhole_shape']['v'] == 'ArmholeCurve'
         is_asymm_curve = not is_asym_sleeveless and is_asymm_curve
@@ -352,4 +354,3 @@ class GUIPattern:
         print(f'Success! {self.sew_pattern.name} saved to {self.saved_garment_folder}')
 
         return self.saved_garment_archive if pack else self.saved_garment_folder
-

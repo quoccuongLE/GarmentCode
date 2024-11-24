@@ -58,7 +58,7 @@ class GUIState:
         self.window = None
 
         # Pattern
-        self.pattern_state = GUIPattern()
+        self.pattern_state = GUIPattern(body_measurement=stl_body_model)
 
         # Pattern display constants
         self.canvas_aspect_ratio = 1500. / 900   # Millimiter paper
@@ -428,7 +428,7 @@ class GUIState:
             self.ui_garment_3d = None
             # TODOLOW Update body model to a correct shape
             self.ui_body_3d = self.ui_3d_scene.stl(
-                    f"/body/{self.stl_body_model}",
+                    f"/body/{self.stl_body_model}.stl",
                 ).rotate(np.pi / 2, 0., 0.).material(color='#113e60')
 
     # !SECTION
