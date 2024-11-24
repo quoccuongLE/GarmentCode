@@ -37,3 +37,5 @@ tmp/
 logs/
 .venv/
 .env
+assets/bodies_aligned/
+assets/bodies/drippy/
