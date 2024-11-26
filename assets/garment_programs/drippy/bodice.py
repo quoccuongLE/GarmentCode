@@ -6,7 +6,7 @@ import pygarment as pyg
 from assets.bodies.body_params import BodyParameters
 from assets.garment_programs.base_classes import BaseBodicePanel
 from assets.garment_programs import tee
-from assets.garment_programs.bodice import BodiceFrontHalf, BodiceHalf, Shirt
+from assets.garment_programs.bodice import BodiceFrontHalf, BodiceBackHalf, BodiceHalf, Shirt
 
 
 class DrippyBodiceBackHalf(BaseBodicePanel):
@@ -33,7 +33,7 @@ class DrippyBodiceBackHalf(BaseBodicePanel):
             [0, 0],
             [-waist_width, 0],
             [-self.width, body['waist_line'] - body['_bust_line']],  # from the bottom
-            [-self.width - top_d_width, length],   
+            [-self.width, length],   
             [0, length + shoulder_incl],   # Add some fabric for the neck (inclination of shoulders)
         ))
         self.edges.close_loop()
@@ -87,6 +87,9 @@ class DrippyBodiceBackHalf(BaseBodicePanel):
 
         # default placement
         self.translate_by([0, body['height'] - body['head_l'] - length - shoulder_incl, 0])
+
+    def get_width(self, level):
+        return self.width
 
 
 class DrippyBodiceHalf(BodiceHalf):
