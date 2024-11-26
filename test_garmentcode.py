@@ -8,6 +8,8 @@ from assets.bodies.body_params import BodyParameters
 from pygarment.data_config import Properties
 
 
+dev = True
+
 if __name__ == '__main__':
 
     bodies_measurements = {
@@ -46,7 +48,7 @@ if __name__ == '__main__':
         sys_props = Properties('./system.json')
         folder = pattern.serialize(
             Path(sys_props['output']), 
-            tag='_' + datetime.now().strftime("%y%m%d-%H-%M-%S"), 
+            tag='_' + datetime.now().strftime("%y%m%d-%H-%M-%S") if not dev else 'dev', 
             to_subfolder=True, 
             with_3d=False, with_text=False, view_ids=False,
             with_printable=True

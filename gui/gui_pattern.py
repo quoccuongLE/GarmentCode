@@ -58,7 +58,7 @@ class GUIPattern:
         )
         self.default_body_params = deepcopy(self.body_params)
         self._load_design_file(
-            Path.cwd() / 'assets/design_params/default.yaml'
+            Path.cwd() / 'assets/design_params/fitted_shirt.yaml'
         )
 
         # Status
