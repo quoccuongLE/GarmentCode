@@ -27,7 +27,8 @@ if __name__ == '__main__':
     body = BodyParameters(bodies_measurements[body_to_use])
 
     design_files = {
-        'fitted_shirt': './assets/design_params/fitted_shirt.yaml',
+        # "t-shirt": "./assets/design_params/t-shirt.yaml",
+        "fitted_shirt": "./assets/design_params/fitted_shirt.yaml",
         # Add paths HERE to load other parameters
     }
     designs = {}

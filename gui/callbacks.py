@@ -54,11 +54,11 @@ class GUIState:
             ('_', '-', etc.) 
 
     """
-    def __init__(self) -> None:
+    def __init__(self, stl_body_model: str) -> None:
         self.window = None
 
         # Pattern
-        self.pattern_state = GUIPattern()
+        self.pattern_state = GUIPattern(body_measurement=stl_body_model)
 
         # Pattern display constants
         self.canvas_aspect_ratio = 1500. / 900   # Millimiter paper
@@ -81,6 +81,7 @@ class GUIState:
         self.local_path_3d.mkdir(parents=True, exist_ok=True)
         app.add_static_files(self.path_static_3d, self.local_path_3d)
         app.add_static_files('/body', './assets/bodies')
+        self.stl_body_model: str = stl_body_model
 
         # Elements
         self.ui_design_subtabs = {}
@@ -426,11 +427,9 @@ class GUIState:
             # NOTE: texture is there, just needs a better setup
             self.ui_garment_3d = None
             # TODOLOW Update body model to a correct shape
-            self.ui_body_3d = (
-                self.ui_3d_scene.stl("/body/mean_all.stl")
-                .rotate(np.pi / 2, 0.0, 0.0)
-                .material(color="#072c57")
-            )
+            self.ui_body_3d = self.ui_3d_scene.stl(
+                    f"/body/{self.stl_body_model}.stl",
+                ).rotate(np.pi / 2, 0., 0.).material(color='#113e60')
 
     # !SECTION
     # SECTION -- Other UI details
