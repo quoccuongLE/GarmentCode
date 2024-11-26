@@ -52,6 +52,7 @@ class DrippyBodiceBackHalf(BaseBodicePanel):
             "outside": pyg.Interface(self, [self.edges[1], self.edges[2]]),
             "inside": pyg.Interface(self, self.edges[-1]),
             "shoulder": pyg.Interface(self, b_interface),
+            # "shoulder": pyg.Interface(self, self.edges[-2]),
             "bottom": pyg.Interface(self, self.edges[0]),
             # Reference to the corners for sleeve and collar projections
             "shoulder_corner": pyg.Interface(
@@ -96,7 +97,7 @@ class DrippyBodiceHalf(BodiceHalf):
     """Definition of a half of an upper garment with sleeves and collars"""
 
     def __init__(self, name: str, body: BodyParameters, design: dict, fitted: bool = True) -> None:
-        super().__init__(name, body, design, fitted)
+        super(BodiceHalf, self).__init__(name)
 
         design = deepcopy(design)   # Recalculate freely!
 
@@ -142,12 +143,13 @@ class DrippyBodiceHalf(BodiceHalf):
             self.ftorso.interfaces['outside'], self.btorso.interfaces['outside']))   # sides
 
 
-class DrippyFittedShirt(Shirt):
+class DrippyFittedShirt(pyg.Component):
     """Panel for the front of upper garments with darts to properly fit it to
     the shape"""
 
     def __init__(self, body: BodyParameters, design: dict, fitted: bool = True) -> None:
-        super().__init__(body, design, fitted)
+        name_with_params = f"{self.__class__.__name__}"
+        super().__init__(name_with_params)
 
         design = self.eval_dep_params(design)
 
@@ -172,3 +174,31 @@ class DrippyFittedShirt(Shirt):
                 self.left.interfaces['b_bottom'].reverse(),
                 self.right.interfaces['b_bottom'],)
         }
+
+    def eval_dep_params(self, design):
+        # NOTE: Support for full collars with partially strapless top
+        # or combination of paneled collar styles
+        # requres further development
+        # TODOLOW enable this one to work
+        if design["left"]["enable_asym"]["v"]:
+            # Force no collars since they are not compatible with each other
+            design = deepcopy(design)
+            design["collar"]["component"]["style"]["v"] = None
+            design["left"]["collar"]["component"] = dict(style=dict(v=None))
+
+            # Left-right design compatibility
+            design["left"]["shirt"].update(length={})
+            design["left"]["shirt"]["length"]["v"] = design["shirt"]["length"]["v"]
+
+            design["left"]["collar"].update(fc_depth={}, bc_depth={})
+            design["left"]["collar"]["fc_depth"]["v"] = design["collar"]["fc_depth"][
+                "v"
+            ]
+            design["left"]["collar"]["bc_depth"]["v"] = design["collar"]["bc_depth"][
+                "v"
+            ]
+
+        return design
+
+    def length(self):
+        return self.right.length()

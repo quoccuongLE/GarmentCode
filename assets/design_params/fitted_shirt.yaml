@@ -1,8 +1,9 @@
 design:
   meta:
     upper:
-      v: FittedShirt
+      v: null
       range:
+      - DrippyFittedShirt
       - FittedShirt
       - Shirt
       - null
