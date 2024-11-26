@@ -20,19 +20,20 @@ if __name__ == '__main__':
         'f_smpl': './assets/bodies/f_smpl_average_A40.yaml',
         'm_smpl': './assets/bodies/m_smpl_average_A40.yaml'
     }
-    body_to_use = 'neutral'   # CHANGE HERE to use different set of body measurements
+    body_to_use = "mean_female"  # CHANGE HERE to use different set of body measurements
 
     body = BodyParameters(bodies_measurements[body_to_use])
 
     design_files = {
-        't-shirt': './assets/design_params/t-shirt.yaml',
+        # "t-shirt": "./assets/design_params/t-shirt.yaml",
+        "fitted_shirt": "./assets/design_params/fitted_shirt.yaml",
         # Add paths HERE to load other parameters
     }
     designs = {}
     for df in design_files:
         with open(design_files[df], 'r') as f:
             designs[df] = yaml.safe_load(f)['design']
-    
+
     test_garments = [MetaGarment(df, body, designs[df]) for df in designs]
 
     for piece in test_garments:

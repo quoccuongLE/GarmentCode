@@ -54,11 +54,11 @@ class GUIState:
             ('_', '-', etc.) 
 
     """
-    def __init__(self) -> None:
+    def __init__(self, stl_body_model: str) -> None:
         self.window = None
 
         # Pattern
-        self.pattern_state = GUIPattern()
+        self.pattern_state = GUIPattern(body_measurement=stl_body_model)
 
         # Pattern display constants
         self.canvas_aspect_ratio = 1500. / 900   # Millimiter paper
@@ -73,7 +73,7 @@ class GUIState:
         # Static images for GUI
         self.path_static_img = '/img'
         app.add_static_files(self.path_static_img, './assets/img')
-        
+
         # 3D updates
         self.path_static_3d = '/geo'
         self.garm_3d_filename = f'garm_3d_{self.pattern_state.id}.glb'
@@ -81,6 +81,7 @@ class GUIState:
         self.local_path_3d.mkdir(parents=True, exist_ok=True)
         app.add_static_files(self.path_static_3d, self.local_path_3d)
         app.add_static_files('/body', './assets/bodies')
+        self.stl_body_model: str = stl_body_model
 
         # Elements
         self.ui_design_subtabs = {}
@@ -112,7 +113,7 @@ class GUIState:
             warning=theme_colors.warning
         )
 
-    # SECTION Top level layout        
+    # SECTION Top level layout
     def layout(self):
         """Overall page layout"""
 
@@ -126,7 +127,7 @@ class GUIState:
 
         # Helpers
         self.def_pattern_waiting()
-        # TODOLOW One dialog for both? 
+        # TODOLOW One dialog for both?
         self.def_design_file_dialog()
         self.def_body_file_dialog()
 
@@ -134,7 +135,7 @@ class GUIState:
         with ui.row(wrap=False).classes(f'w-full h-[{self.h_params_content}dvh] p-0 m-0 '): 
             # Tabs
             self.def_param_tabs_layout()
-            
+
             # Pattern visual
             self.view_tabs_layout()
 
@@ -192,11 +193,11 @@ class GUIState:
                     self.def_body_tab()
 
     def def_body_tab(self):
-    
+
         # Set of buttons
         with ui.row():
             ui.button('Upload', on_click=self.ui_body_dialog.open)  
-        
+
         self.ui_active_body_refs = {}
         self.ui_passive_body_refs = {}
         with ui.scroll_area().classes('w-full h-full p-0 m-0'): # NOTE: p-0 m-0 gap-0 dont' seem to have effect
@@ -280,14 +281,14 @@ class GUIState:
                         validation={'Input too long': lambda value: len(value) < 20},
                         on_change=lambda e, dic=design_params, param=param: self.update_pattern_ui_state(dic, param, e.value)
                     ).classes('w-full')
-                
+
     def def_design_tab(self):
         # Set of buttons
         with ui.row():
             ui.button('Random', on_click=self.random)
             ui.button('Default', on_click=self.default)
             ui.button('Upload', on_click=self.ui_design_dialog.open)  
-    
+
         # Design parameters
         design_params = self.pattern_state.design_params
         self.ui_design_refs = {}
@@ -319,7 +320,7 @@ class GUIState:
                     design_params,
                     use_collapsible=True
                 )
-                            
+
     # !SECTION
     # SECTION -- Pattern visuals
     def def_pattern_display(self):
@@ -338,13 +339,13 @@ class GUIState:
             with ui.image(
                     f'{self.path_static_img}/millimiter_paper_1500_900.png'
                 ).classes(f'aspect-[{self.canvas_aspect_ratio}] h-[95%] p-0 m-0')  as self.ui_pattern_bg:  
-                # NOTE: Positioning: https://github.com/zauberzeug/nicegui/discussions/957 
+                # NOTE: Positioning: https://github.com/zauberzeug/nicegui/discussions/957
                 with ui.row().classes('w-full h-full p-0 m-0 bg-transparent relative top-[0%] left-[0%]'):
                     self.body_outline_classes = 'bg-transparent h-full absolute top-[0%] left-[0%] p-0 m-0'
                     self.ui_body_outline = ui.image(f'{self.path_static_img}/ggg_outline_mean_all.svg') \
                         .classes(self.body_outline_classes) 
                     switch.bind_value(self.ui_body_outline, 'visible')
-                
+
                 # NOTE: ui.row allows for correct classes application (e.g. no padding on svg pattern)
                 with ui.row().classes('w-full h-full p-0 m-0 bg-transparent relative'):
                     # Automatically updates from source
@@ -427,15 +428,15 @@ class GUIState:
             self.ui_garment_3d = None
             # TODOLOW Update body model to a correct shape
             self.ui_body_3d = self.ui_3d_scene.stl(
-                    '/body/mean_all.stl' 
-                ).rotate(np.pi / 2, 0., 0.).material(color='#000000')
+                    f"/body/{self.stl_body_model}.stl",
+                ).rotate(np.pi / 2, 0., 0.).material(color='#113e60')
 
     # !SECTION
     # SECTION -- Other UI details
     def def_pattern_waiting(self):
         """Define the waiting splashcreen with spinner 
             (e.g. waiting for a pattern to update)"""
-        
+
         # NOTE: the screen darkens because of the shadow
         with ui.dialog(value=False).props(
             'persistent maximized'
@@ -500,9 +501,9 @@ class GUIState:
     # SECTION -- Event callbacks
     async def update_pattern_ui_state(self, param_dict=None, param=None, new_value=None, body_param=False):
         """UI was updated -- update the state of the pattern parameters and visuals"""
-        # NOTE: Fixing to the "same value" issue in lambdas 
+        # NOTE: Fixing to the "same value" issue in lambdas
         # https://github.com/zauberzeug/nicegui/wiki/FAQs#why-have-all-my-elements-the-same-value
-   
+
         print('INFO::Updating pattern...')
 
         # Update the values
@@ -512,7 +513,7 @@ class GUIState:
             else:
                 param_dict[param]['v'] = new_value
                 self.pattern_state.is_in_3D = False   # Design param changes -> 3D model is not synced with the param
- 
+
         try:
             if not self.pattern_state.is_slow_design(): 
                 # Quick update
@@ -524,11 +525,11 @@ class GUIState:
             # https://github.com/zauberzeug/nicegui/discussions/1988
 
             self.spin_dialog.open()   
-            # NOTE: Using threads for async call 
+            # NOTE: Using threads for async call
             # https://stackoverflow.com/questions/49822552/python-asyncio-typeerror-object-dict-cant-be-used-in-await-expression
             self.loop = asyncio.get_event_loop()
             await self.loop.run_in_executor(self._async_executor, self._sync_update_state)
-            
+
             self.spin_dialog.close()
 
         except KeyboardInterrupt as e:
@@ -554,10 +555,10 @@ class GUIState:
         # Sync left-right for easier editing
         self.pattern_state.sync_left(with_check=True)
 
-        # NOTE This is the slow part 
+        # NOTE This is the slow part
         self.pattern_state.reload_garment()
 
-        # TODOLOW the pattern is floating around when collars are added.. 
+        # TODOLOW the pattern is floating around when collars are added..
         # Update display
         if self.ui_pattern_display is not None:
 
@@ -621,7 +622,7 @@ class GUIState:
                                 w-[{(1. - m_right - m_left) * 100}%]
                                 height-auto
                         """)  
-                    
+
             else:
                 # Restore default state
                 self.ui_pattern_display.set_source('')
@@ -656,11 +657,11 @@ class GUIState:
 
         print('INFO::Updating 3D...')
 
-        # Cleanup 
+        # Cleanup
         if self.ui_garment_3d is not None:
             self.ui_garment_3d.delete()
             self.ui_garment_3d = None
-        
+
         if not self.pattern_state.svg_filename:
             print('INFO::Current garment is empty, skipped 3D update')
             ui.notify('Current garment is empty. Chose a design to start simulating!')
@@ -674,7 +675,7 @@ class GUIState:
             # https://github.com/zauberzeug/nicegui/discussions/1988
 
             self.spin_dialog.open()
-            # NOTE: Using threads for async call 
+            # NOTE: Using threads for async call
             # https://stackoverflow.com/questions/49822552/python-asyncio-typeerror-object-dict-cant-be-used-in-await-expression
             self.loop = asyncio.get_event_loop()
             await self.loop.run_in_executor(self._async_executor, self._sync_update_3d)
@@ -686,7 +687,7 @@ class GUIState:
                 self.ui_garment_3d = self.ui_3d_scene.gltf(
                             f'geo/{self.garm_3d_filename}', 
                         ).scale(0.01).rotate(np.pi / 2, 0., 0.)
-            
+
             # Show the result! =)
             self.spin_dialog.close()
 
@@ -703,7 +704,7 @@ class GUIState:
                 close_button=True,
                 position='center'
             )
-    
+
     def _sync_update_3d(self):
         """Update 3d model"""
 
