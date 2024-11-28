@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
     design_files = {
         # "t-shirt": "./assets/design_params/t-shirt.yaml",
-        "fitted_shirt": "./assets/design_params/fitted_shirt.yaml",
+        "fitted_shirt": "./assets/design_params/fitted_shirt_dev.yaml",
         # Add paths HERE to load other parameters
     }
     designs = {}
