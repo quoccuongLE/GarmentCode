@@ -34,15 +34,23 @@ icon_github = """
     """
 icon_arxiv = """<svg id="primary_logo_-_single_color_-_white" data-name="primary logo - single color - white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 246.978 110.119"><path d="M492.976,269.5l24.36-29.89c1.492-1.989,2.2-3.03,1.492-4.723a5.142,5.142,0,0,0-4.481-3.161h0a4.024,4.024,0,0,0-3.008,1.108L485.2,261.094Z" transform="translate(-358.165 -223.27)" fill="#fff"/><path d="M526.273,325.341,493.91,287.058l-.972,1.033-7.789-9.214-7.743-9.357-4.695,5.076a4.769,4.769,0,0,0,.015,6.53L520.512,332.2a3.913,3.913,0,0,0,3.137,1.192,4.394,4.394,0,0,0,4.027-2.818C528.4,328.844,527.6,327.133,526.273,325.341Z" transform="translate(-358.165 -223.27)" fill="#fff"/><path d="M479.215,288.087l6.052,6.485L458.714,322.7a2.98,2.98,0,0,1-2.275,1.194,3.449,3.449,0,0,1-3.241-2.144c-.513-1.231.166-3.15,1.122-4.168l.023-.024.021-.026,24.851-29.448m-.047-1.882-25.76,30.524c-1.286,1.372-2.084,3.777-1.365,5.5a4.705,4.705,0,0,0,4.4,2.914,4.191,4.191,0,0,0,3.161-1.563l27.382-29.007-7.814-8.372Z" transform="translate(-358.165 -223.27)" fill="#fff"/><path d="M427.571,255.154c1.859,0,3.1,1.24,3.985,3.453,1.062-2.213,2.568-3.453,4.694-3.453h14.878a4.062,4.062,0,0,1,4.074,4.074v7.828c0,2.656-1.327,4.074-4.074,4.074-2.656,0-4.074-1.418-4.074-4.074V263.3H436.515a2.411,2.411,0,0,0-2.656,2.745v27.188h10.007c2.658,0,4.074,1.329,4.074,4.074s-1.416,4.074-4.074,4.074h-26.39c-2.659,0-3.986-1.328-3.986-4.074s1.327-4.074,3.986-4.074h8.236V263.3h-7.263c-2.656,0-3.985-1.329-3.985-4.074,0-2.658,1.329-4.074,3.985-4.074Z" transform="translate(-358.165 -223.27)" fill="#fff"/><path d="M539.233,255.154c2.656,0,4.074,1.416,4.074,4.074v34.007h10.1c2.746,0,4.074,1.329,4.074,4.074s-1.328,4.074-4.074,4.074H524.8c-2.656,0-4.074-1.328-4.074-4.074s1.418-4.074,4.074-4.074h10.362V263.3h-8.533c-2.744,0-4.073-1.329-4.073-4.074,0-2.658,1.329-4.074,4.073-4.074Zm4.22-17.615a5.859,5.859,0,1,1-5.819-5.819A5.9,5.9,0,0,1,543.453,237.539Z" transform="translate(-358.165 -223.27)" fill="#fff"/><path d="M605.143,259.228a4.589,4.589,0,0,1-.267,1.594L590,298.9a3.722,3.722,0,0,1-3.721,2.48h-5.933a3.689,3.689,0,0,1-3.808-2.48l-15.055-38.081a3.23,3.23,0,0,1-.355-1.594,4.084,4.084,0,0,1,4.164-4.074,3.8,3.8,0,0,1,3.718,2.656l14.348,36.134,13.9-36.134a3.8,3.8,0,0,1,3.72-2.656A4.084,4.084,0,0,1,605.143,259.228Z" transform="translate(-358.165 -223.27)" fill="#fff"/><path d="M390.61,255.154c5.018,0,8.206,3.312,8.206,8.4v37.831H363.308a4.813,4.813,0,0,1-5.143-4.929V283.427a8.256,8.256,0,0,1,7-8.148l25.507-3.572v-8.4H362.306a4.014,4.014,0,0,1-4.141-4.074c0-2.87,2.143-4.074,4.355-4.074Zm.059,38.081V279.942l-24.354,3.4v9.9Z" transform="translate(-358.165 -223.27)" fill="#fff"/><path d="M448.538,224.52h.077c1,.024,2.236,1.245,2.589,1.669l.023.028.024.026,46.664,50.433a3.173,3.173,0,0,1-.034,4.336l-4.893,5.2-6.876-8.134L446.652,230.4c-1.508-2.166-1.617-2.836-1.191-3.858a3.353,3.353,0,0,1,3.077-2.02m0-1.25a4.606,4.606,0,0,0-4.231,2.789c-.705,1.692-.2,2.88,1.349,5.1l39.493,47.722,7.789,9.214,5.853-6.221a4.417,4.417,0,0,0,.042-6.042L452.169,225.4s-1.713-2.08-3.524-2.124Z" transform="translate(-358.165 -223.27)" fill="#fff"/></svg>"""
 
+icon_drippy = """<svg
+   width="238" height="51" viewBox="0 0 238 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M72.05 4H85.8C96.6 4 103.7 11 103.7 21.45C103.7 31.85 96.6 39 85.8 39H72.05C71.4 39 70.95 38.5 70.95 37.85V5.1C70.95 4.5 71.4 4 72.05 4ZM78.45 32.1H85.8C91.8 32.1 95.85 27.45 95.85 21.45C95.85 15.35 91.8 10.9 85.8 10.9H78.45V32.1ZM119.763 14.3H120.463C121.013 14.3 121.663 14.5 121.663 15.65V20.6C121.663 21.75 120.763 21.95 120.363 21.95H119.063C115.913 21.95 114.313 23.45 114.313 27.2V38C114.313 38.6 113.763 39 113.213 39H108.163C107.563 39 107.113 38.55 107.113 37.95V15.75C107.113 15.15 107.563 14.65 108.163 14.65H112.963C113.513 14.65 114.013 15.1 114.013 15.65V17.65C115.363 15.5 117.413 14.3 119.763 14.3ZM127.95 12.05C125.55 12.05 123.6 10.05 123.6 7.7C123.6 5.3 125.55 3.3 127.95 3.3C130.3 3.3 132.25 5.3 132.25 7.7C132.25 10.05 130.3 12.05 127.95 12.05ZM130.45 39H125.4C124.8 39 124.3 38.5 124.3 37.9V15.75C124.3 15.15 124.8 14.65 125.4 14.65H130.45C131.05 14.65 131.5 15.15 131.5 15.75V37.9C131.5 38.5 131.05 39 130.45 39ZM142.974 26.85C142.974 30.3 145.574 33.05 148.974 33.05C152.374 33.05 154.924 30.3 154.924 26.85C154.924 23.45 152.374 20.65 148.974 20.65C145.574 20.65 142.974 23.45 142.974 26.85ZM142.924 15.75V17.25C144.324 15.3 146.874 13.95 150.224 13.95C156.574 13.95 162.174 18.95 162.174 26.8C162.174 34.65 156.574 39.7 150.124 39.7C147.374 39.7 144.424 38.75 143.024 36.7V48.8C143.024 49.4 142.524 49.85 141.974 49.85H136.874C136.274 49.85 135.824 49.4 135.824 48.8V15.75C135.824 15.15 136.274 14.65 136.874 14.65H141.874C142.474 14.65 142.924 15.15 142.924 15.75ZM172.515 26.85C172.515 30.3 175.115 33.05 178.515 33.05C181.915 33.05 184.465 30.3 184.465 26.85C184.465 23.45 181.915 20.65 178.515 20.65C175.115 20.65 172.515 23.45 172.515 26.85ZM172.465 15.75V17.25C173.865 15.3 176.415 13.95 179.765 13.95C186.115 13.95 191.715 18.95 191.715 26.8C191.715 34.65 186.115 39.7 179.665 39.7C176.915 39.7 173.965 38.75 172.565 36.7V48.8C172.565 49.4 172.065 49.85 171.515 49.85H166.415C165.815 49.85 165.365 49.4 165.365 48.8V15.75C165.365 15.15 165.815 14.65 166.415 14.65H171.415C172.015 14.65 172.465 15.15 172.465 15.75ZM199.873 50.6C196.873 50.6 194.223 49.65 192.473 48.05C191.923 47.55 191.873 46.9 192.373 46.15L194.173 43.55C194.773 42.6 195.723 42.8 196.373 43.25C197.173 43.85 198.223 44.4 199.373 44.4C200.773 44.4 201.873 43.55 202.423 42.1L203.523 39H200.973C200.223 39 199.823 38.55 199.623 37.95L192.473 16.35C192.223 15.5 192.373 14.65 193.623 14.65H199.473C200.123 14.65 200.473 15.2 200.623 15.8L205.473 32.4L209.973 15.8C210.123 15.2 210.523 14.65 211.323 14.65H216.973C217.973 14.65 218.273 15.35 217.923 16.35L209.623 43.1C208.173 47.7 204.923 50.6 199.873 50.6ZM223.127 39.7C220.527 39.7 218.427 37.6 218.427 35C218.427 32.4 220.527 30.3 223.127 30.3C225.727 30.3 227.877 32.4 227.877 35C227.877 37.6 225.727 39.7 223.127 39.7Z" fill="white" />
+  <path d="M51 25.5C51 39.5833 39.5833 51 25.5 51C11.4167 51 0 39.5833 0 25.5C0 11.4167 11.4167 0 25.5 0C39.5833 0 51 11.4167 51 25.5Z" fill="white" />
+  <path d="M51 25.5C51 39.5833 39.5833 51 25.5 51C11.4167 51 0 39.5833 0 25.5C0 11.4167 11.4167 0 25.5 0C39.5833 0 51 11.4167 51 25.5Z" fill="#4051E8" style="stroke:#ffffff" />
+  <path d="M24.9865 15.7572C27.3836 15.4604 29.8123 16.1495 31.7382 17.6924C33.6665 19.2371 34.9325 21.5128 35.2383 24.0253C35.5442 26.538 34.8617 29.0581 33.3584 31.0312C31.8567 33.0021 29.6623 34.2642 27.2649 34.5611L21.2171 35.3102C20.3449 35.3197 19.484 35.0251 18.7783 34.4598C18.0685 33.8911 17.56 33.083 17.3494 32.1654L16.6402 26.3392C16.3343 23.8265 17.0168 21.3064 18.5201 19.3333C20.0217 17.3625 22.2162 16.1003 24.6136 15.8034L24.9865 15.7572Z" stroke="white" stroke-width="5" />
+</svg>"""
+
 theme_colors = Namespace(
-    primary='#ed7ea7',   
-    secondary='#a33e6c',
-    accent='#a82c64',
-    dark='#4d1f48',
-    positive='#22ba38',
-    negative='#f50000',
-    info='#31CCEC',
-    warning='#9333ea'
+    primary="#4051E8",
+    secondary="#a33e6c",
+    accent="#a82c64",
+    dark="#4d1f48",
+    positive="#22ba38",
+    negative="#f50000",
+    info="#31CCEC",
+    warning="#9333ea",
 )
 
 # State of GUI
@@ -112,13 +120,14 @@ class GUIState:
             info=theme_colors.info,
             warning=theme_colors.warning
         )
+        # dark_mode = ui.dark_mode(True)
 
     # SECTION Top level layout
     def layout(self):
         """Overall page layout"""
 
         # as % of viewport width/height
-        self.h_header = 5
+        self.h_header = 9
         self.h_params_content = 88
         self.h_garment_display = 74 
         self.w_garment_display = 65
@@ -142,27 +151,31 @@ class GUIState:
         # Overall wrapping
         # NOTE: https://nicegui.io/documentation/section_pages_routing#page_layout
         with ui.header(elevated=True, fixed=False).classes(f'h-[{self.h_header}vh] items-center justify-end py-0 px-4 m-0'):
-            ui.label('GarmentCode design configurator').classes('mr-auto').style('font-size: 150%; font-weight: 400')
-            ui.button(
-                'About the project', 
-                on_click=lambda: ui.navigate.to('https://igl.ethz.ch/projects/garmentcode/', new_tab=True)
-                ).props('flat color=white')
-            with ui.link(target='https://arxiv.org/abs/2306.03642', new_tab=True):
-                ui.html(icon_arxiv).classes('w-16 bg-transparent')
-            ui.button(
-                'Dataset', 
-                on_click=lambda: ui.navigate.to('https://igl.ethz.ch/projects/GarmentCodeData/', new_tab=True)
-                ).props('flat color=white')
-            with ui.link(target='https://github.com/maria-korosteleva/GarmentCode', new_tab=True):
-                ui.html(icon_github).classes('w-8 bg-transparent')
+            # ui.switch("Dark mode").bind_value(dark_mode)
+            ui.label('Demo for Drippy design configurator').classes('mr-auto').style('font-size: 150%; font-weight: 400')
+            # ui.button(
+            #     'About the project',
+            #     on_click=lambda: ui.navigate.to('https://igl.ethz.ch/projects/garmentcode/', new_tab=True)
+            #     ).props('flat color=white')
+            # with ui.link(target='https://arxiv.org/abs/2306.03642', new_tab=True):
+            #     ui.html(icon_arxiv).classes('w-16 bg-transparent')
+            with ui.link(target="https://drippy3d.com/", new_tab=True):
+                ui.html(icon_drippy).classes('w-60 bg-transparent')
+            # ui.switch("Dark mode", value=True, on_change=toggle_mode)
+            # ui.button(
+            #     'Dataset',
+            #     on_click=lambda: ui.navigate.to('https://igl.ethz.ch/projects/GarmentCodeData/', new_tab=True)
+            #     ).props('flat color=white')
+            # with ui.link(target='https://github.com/maria-korosteleva/GarmentCode', new_tab=True):
+            #     ui.html(icon_github).classes('w-8 bg-transparent')
         # NOTE No ui.left_drawer(), no ui.right_drawer()
-        with ui.footer(fixed=False, elevated=True).classes('items-center justify-center p-0 m-0'): 
-            # https://www.termsfeed.com/blog/sample-copyright-notices/
-            ui.link(
-                '© 2024 Interactive Geometry Lab', 
-                'https://igl.ethz.ch/', 
-                new_tab=True
-            ).classes('text-white')
+        # with ui.footer(fixed=False, elevated=True).classes('items-center justify-center p-0 m-0'):
+        #     # https://www.termsfeed.com/blog/sample-copyright-notices/
+        #     ui.link(
+        #         '© 2024 Interactive Geometry Lab',
+        #         'https://igl.ethz.ch/',
+        #         new_tab=True
+        #     ).classes('text-white')
 
     def view_tabs_layout(self):
         """2D/3D view tabs"""
