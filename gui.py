@@ -18,10 +18,11 @@ parser.add_argument(
 args = parser.parse_args()
 
 
-@ui.page('/')
-async def index(client: Client):
+@ui.page('/{avartar}')
+async def index(client: Client, avartar: str = "female_model"):
     # Start the interface!
-    gui_st = GUIState(args.avatar_path)
+    # gui_st = GUIState(args.avatar_path)
+    gui_st = GUIState(f"drippy/{avartar}")
 
     # Connection end
     # https://github.com/zauberzeug/nicegui/discussions/1379
@@ -29,9 +30,8 @@ async def index(client: Client):
     print('Closed connection ', gui_st.pattern_state.id, '. Deleting files...')
     gui_st.release()
 
+
 if __name__ == '__main__':
-    dark = ui.dark_mode()
-    dark.enable()
     ui.run(
             host="0.0.0.0",
             reload=False,

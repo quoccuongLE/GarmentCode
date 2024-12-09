@@ -210,7 +210,7 @@ class GUIPattern:
         # TODOLOW Support body shape estimation from measurements
 
         def_sew_pattern = MetaGarment(
-            'Configured_design', self.default_body_params, self.design_params)
+            'Configured_design', self.body_params, self.design_params)
 
         # Save the pattern
         pattern_folder = self.save(False, save_pattern=def_sew_pattern)

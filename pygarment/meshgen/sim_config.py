@@ -36,14 +36,15 @@ class PathCofig:
         self.input = Path(in_element_path)
         self.out = out_path
         self.out_el = Path(out_path) / self.out_folder_tag
+        print(f"Output files are stored at {self.out_el}\n")
         self.out_el.mkdir(parents=True, exist_ok=True)
-        
+
         # Individual file paths
         self._update_in_paths()
         self._update_boxmesh_paths()
         self.update_in_copies_paths()
         self.update_sim_paths()
-    
+
     def _update_in_paths(self):
 
         # Base path
@@ -57,7 +58,7 @@ class PathCofig:
             self.in_body_mes = self.bodies_path / f'{self._body_name}.yaml'
         else:
             self.in_body_mes = self.input / 'body_measurements.yaml'
-        
+
         with open(self.in_body_mes, 'r') as file:
             body_dict = yaml.load(file, Loader=yaml.SafeLoader)
         if 'body_sample' in body_dict['body']:   # Not present in default measurements
@@ -78,25 +79,24 @@ class PathCofig:
         self.g_texture_fabric = self.out_el / f'{self.boxmesh_tag}_texture_fabric.png'
         self.g_texture = self.out_el / f'{self.boxmesh_tag}_texture.png'
         self.g_mtl = self.out_el / f'{self.boxmesh_tag}_material.mtl'
-        
+
     def update_in_copies_paths(self):
         self.g_specs = self.out_el / f'{self.in_tag}_specification.json'
         self.element_sim_props = self.out_el / 'sim_props.yaml'
         self.body_mes = self.out_el / f'{self.in_tag}_body_measurements.yaml'
         self.design_params = self.out_el / f'{self.in_tag}_design_params.yaml'
-        
+
     def update_sim_paths(self):
         self.g_sim = self.out_el / f'{self.sim_tag}_sim.obj'
         self.g_sim_glb = self.out_el / f'{self.sim_tag}_sim.glb'
         self.g_sim_compressed = self.out_el / f'{self.sim_tag}_sim.ply'
         self.usd = self.out_el / f'{self.sim_tag}_simulation.usd'
 
-
     def render_path(self, camera_name=''):
-        
+
         fname = f'{self.sim_tag}_render_{camera_name}.png' if camera_name else f'{self.sim_tag}_render.png'
         return self.out_el / fname
-        
+
 
 class SimConfig:
     def __init__(self, sim_props):
@@ -282,4 +282,3 @@ class SimConfig:
         if name in sim_props:
             return sim_props[name]
         return default_value
-

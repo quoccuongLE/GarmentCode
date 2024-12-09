@@ -198,12 +198,72 @@ class GUIState:
         with ui.column(wrap=False).classes(f'h-[{self.h_params_content}vh]'):
             with ui.tabs() as tabs:
                 self.ui_design_tab = ui.tab('Design parameters')
-                self.ui_body_tab = ui.tab('Body parameters')
+                self.ui_body_tab = ui.tab("Avatar selection")
+                # self.ui_body_tab = ui.tab('Body parameters')
             with ui.tab_panels(tabs, value=self.ui_design_tab, animated=True).classes('w-full h-full items-center'):  
+                with ui.tab_panel(self.ui_body_tab).classes('w-full h-full items-center p-0 m-0'):
+                    # self.def_body_tab()
+                    self.avatar_selection()
                 with ui.tab_panel(self.ui_design_tab).classes('w-full h-full items-center p-0 m-0'):
                     self.def_design_tab()
-                with ui.tab_panel(self.ui_body_tab).classes('w-full h-full items-center p-0 m-0'):
-                    self.def_body_tab()
+
+    def avatar_selection(self):
+        def selection_action(body):
+            ui.notify(body)
+            if body == "All average":
+                self.stl_body_model = "drippy/mean_all"
+            elif body == "Drippy male":
+                self.stl_body_model = "drippy/male_model"
+            elif body == "Drippy female":
+                self.stl_body_model = "drippy/female_model"
+            else:
+                raise NotImplementedError
+            # NOTE: texture is there, just needs a better setup
+            self.ui_garment_3d = None
+            self.ui_body_3d.delete()
+            # TODOLOW Update body model to a correct shape
+            self.ui_body_3d = self.ui_3d_scene.stl(
+                    f"/body/{self.stl_body_model}.stl",
+                ).rotate(np.pi / 2, 0., 0.).material(color='#113e60')
+            # TODO: Review
+            self.pattern_state._load_body_file(
+                Path.cwd() / f"assets/bodies/{self.stl_body_model}.yaml"
+            )
+            self.pattern_state.reload_garment()
+
+        body_options = ["All average", "Drippy male", "Drippy female"]
+        ui.select(
+            label="Avatar select",
+            with_input=True,
+            options=body_options,
+            value="Drippy female",
+            on_change=lambda e: selection_action(e.value),
+        ).classes("w-full")
+        self.ui_active_body_refs = {}
+        self.ui_passive_body_refs = {}
+        with ui.scroll_area().classes("w-full h-full p-0 m-0"):  # NOTE: p-0 m-0 gap-0 dont' seem to have effect
+            body = self.pattern_state.body_params
+            for param in body:
+                param_name = param.replace("_", " ").capitalize()
+                elem = ui.number(
+                    label=param_name,
+                    value=str(body[param]),
+                    format="%.2f",
+                    precision=2,
+                    step=0.5,
+                ).classes("text-[0.85rem]")
+
+                if param[0] == "_":  # Info elements for calculatable parameters
+                    elem.disable()
+                    self.ui_passive_body_refs[param] = elem
+                else:  # active elements accepting input
+                    # NOTE: e.sender == UI object, e.value == new value
+                    elem.on_value_change(
+                        lambda e, dic=body, param=param: self.update_pattern_ui_state(
+                            dic, param, e.value, body_param=True
+                        )
+                    )
+                    self.ui_active_body_refs[param] = elem
 
     def def_body_tab(self):
 
