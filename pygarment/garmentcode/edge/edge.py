@@ -332,7 +332,7 @@ class CircleEdge(Edge):
         # So parent implementation is ok
         # TODOLOW Implementation is very similar to CurveEdge param-based subdivision
 
-        from pygarment.garmentcode.edge_factory import EdgeFactory  # TODOLOW: ami - better solution?
+        from pygarment.garmentcode.edge.edge_factory import EdgeFactory  # TODOLOW: ami - better solution?
         frac = [abs(f) for f in fractions]
         if not close_enough(fsum := sum(frac), 1, 1e-4):
             raise RuntimeError(f'Edge Subdivision::ERROR::fraction is incorrect. The sum {fsum} is not 1')
@@ -518,7 +518,7 @@ class CurveEdge(Edge):
             splitting its curve parametrization or overall length according to 
             fractions while preserving the overall shape
         """
-        from pygarment.garmentcode.edge_factory import EdgeFactory  # TODOLOW: ami - better solution?
+        from pygarment.garmentcode.edge.edge_factory import EdgeFactory  # TODOLOW: ami - better solution?
         curve = self.as_curve()
 
         # Sub-curves

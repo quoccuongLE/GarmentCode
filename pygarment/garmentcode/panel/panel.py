@@ -5,9 +5,9 @@ from scipy.spatial.transform import Rotation as R
 
 from pygarment.pattern.core import BasicPattern
 from pygarment.garmentcode.base import BaseComponent
-from pygarment.garmentcode.edge import Edge, EdgeSequence, CircleEdge
+from pygarment.garmentcode.edge.edge import Edge, EdgeSequence, CircleEdge
 from pygarment.garmentcode.utils import close_enough, vector_align_3D
-from pygarment.garmentcode.operators import cut_into_edge
+from pygarment.garmentcode.connectors.connectors import cut_into_edge
 from pygarment.garmentcode.interface import Interface
 
 

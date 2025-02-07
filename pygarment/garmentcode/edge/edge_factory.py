@@ -3,8 +3,8 @@ from numpy.linalg import norm
 import svgpathtools as svgpath
 from scipy.optimize import minimize
 
-from pygarment.garmentcode.edge import EdgeSequence, Edge, CurveEdge
-from pygarment.garmentcode.edge import CircleEdge
+from pygarment.garmentcode.edge.edge import EdgeSequence, Edge, CurveEdge
+from pygarment.garmentcode.edge.edge import CircleEdge
 from pygarment.garmentcode.utils import vector_angle
 from pygarment.garmentcode.utils import bbox_paths
 from pygarment.garmentcode.utils import close_enough
